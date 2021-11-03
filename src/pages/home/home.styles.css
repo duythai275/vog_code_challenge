@@ -1,0 +1,9 @@
+.section-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-button {
+    margin-left: var(--mb-2);
+    margin-right: var(--mb-2);
+}
