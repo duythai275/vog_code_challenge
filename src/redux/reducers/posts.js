@@ -34,7 +34,7 @@ export default function ( state = initState, action ) {
         case DELETE_A_POST: {
             return {
                 ...state,
-                posts: state.posts.filter( post => post.id !== action.payload.id )
+                posts: state.posts.filter( post => post.id !== action.payload )
             }
         }
         case CHANGE_OPEN_EDITOR: {

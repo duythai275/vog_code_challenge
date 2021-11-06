@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Modal, Button, Form, Input } from "antd";
-import { addPost, editPost,changeOpenEditor } from '../../redux/actions/post';
+import { pushAPostAsync, putAPostAsync, changeOpenEditor } from '../../redux/actions/post';
 import { connect } from "react-redux";
 
-const PostEditor = ({ addPost, editPost, open, changeOpenEditor }) => {
+const PostEditor = ({ pushAPostAsync, putAPostAsync, open, changeOpenEditor }) => {
 
     const { TextArea } = Input;
 
@@ -23,50 +23,19 @@ const PostEditor = ({ addPost, editPost, open, changeOpenEditor }) => {
 
     const handleOk = () => {
         if ( open.id === "" ) {
-            fetch(`https://jsonplaceholder.typicode.com/posts`, {
-                "method": 'POST',
-                "headers": {
-                    'Content-Type': "application/json"
-                },
-                "body": JSON.stringify({
-                    "userId": 1,
-                    "title": title,
-                    "body": body
-                })
-            })
-            .then( res => {
-                console.log(res);
-                addPost({
-                    userId: 1,
-                    title: title,
-                    body: body
-                });
-            })
-            .then( err => console.log(err) ) 
+            pushAPostAsync({
+                "userId": 1,
+                "title": title,
+                "body": body
+            });
             
         } else {
-            fetch(`https://jsonplaceholder.typicode.com/posts/${open.id}`, {
-                "method": 'PUT',
-                "headers": {
-                    'Content-Type': "application/json"
-                },
-                "body": JSON.stringify({
-                    "id": open.id,
-                    "userId": 1,
-                    "title": title,
-                    "body": body
-                })
-            })
-            .then( res => {
-                console.log(res);
-                editPost({
-                    id: open.id,
-                    userId: 1,
-                    title: title,
-                    body: body
-                });
-            })
-            .then( err => console.log(err) ) 
+            putAPostAsync({
+                "id": open.id,
+                "userId": 1,
+                "title": title,
+                "body": body
+            });
         }
         changeOpenEditor(null);
     }
@@ -116,7 +85,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    addPost, editPost,
+    pushAPostAsync, putAPostAsync,
     changeOpenEditor
 }
 
