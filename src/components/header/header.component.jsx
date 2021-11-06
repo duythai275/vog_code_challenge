@@ -39,7 +39,7 @@ const Header = ({history}) => {
                                     setMenuItems(["nav__link","nav__link","nav__link active"]); 
                                     setShowMenu("nav__menu");
                                 }}
-                            ><Link to="/postal_lookup">Postal lookup</Link></a>
+                            ><Link to="/postal_lookup">Postal Lookup</Link></a>
                         </li>
                     </ul>
                 </div>

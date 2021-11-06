@@ -23,12 +23,12 @@ const Universities = ({ universities, countryNames, fetchUniversitiesAsync, fetc
     return (
         <section className="section">
             <div className="bd-grid">
-                <div className="section-header">
+                <div className="section-header-universities">
                     <div>
                         <Space>
                             <Select
                                 showSearch
-                                style={{ width: 200, marginBottom: 16 }}
+                                style={{ width: 250, marginBottom: 16 }}
                                 placeholder="Select a country"
                                 onChange={ value => setCountryName(value) }
                                 value={countryName}
