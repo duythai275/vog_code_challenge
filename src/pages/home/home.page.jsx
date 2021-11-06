@@ -112,7 +112,6 @@ const Home = ({ getAllPosts, deletePost, posts, changeOpenEditor }) => {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         posts: state.postsStore.posts
     }
