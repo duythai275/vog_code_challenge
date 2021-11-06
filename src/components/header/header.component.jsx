@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
+import { Link } from "react-router-dom";
 import './header.styles.css';
 
-const Header = props => {
+const Header = ({history}) => {
     const [ showMenu, setShowMenu ] = useState("nav__menu");
     const [ menuItems, setMenuItems ] = useState(["nav__link active","nav__link","nav__link"]);
 
@@ -15,13 +15,31 @@ const Header = props => {
                 <div className={showMenu} id="nav-menu">
                     <ul className="nav__list">
                         <li className="nav__item">
-                            <a className={menuItems[0]} onClick={() => { setMenuItems(["nav__link active","nav__link","nav__link"]); setShowMenu("nav__menu")} }>Home</a>
+                            <a 
+                                className={menuItems[0]} 
+                                onClick={() => { 
+                                    setMenuItems(["nav__link active","nav__link","nav__link"]); 
+                                    setShowMenu("nav__menu");
+                                }}
+                            ><Link to="/">Home</Link></a>
                         </li>
                         <li className="nav__item">
-                            <a className={menuItems[1]} onClick={() => { setMenuItems(["nav__link","nav__link active","nav__link"]); setShowMenu("nav__menu")} }>Universities</a>
+                            <a 
+                                className={menuItems[1]} 
+                                onClick={() => { 
+                                    setMenuItems(["nav__link","nav__link active","nav__link"]); 
+                                    setShowMenu("nav__menu");
+                                }}
+                            ><Link to="/universities">Universities</Link></a>
                         </li>
                         <li className="nav__item">
-                            <a className={menuItems[2]} onClick={() => { setMenuItems(["nav__link","nav__link","nav__link active"]); setShowMenu("nav__menu")} }>Postal lookup</a>
+                            <a 
+                                className={menuItems[2]} 
+                                onClick={() => { 
+                                    setMenuItems(["nav__link","nav__link","nav__link active"]); 
+                                    setShowMenu("nav__menu");
+                                }}
+                            ><Link to="/postal_lookup">Postal lookup</Link></a>
                         </li>
                     </ul>
                 </div>
