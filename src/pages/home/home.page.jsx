@@ -1,45 +1,32 @@
 import { useEffect, useState } from 'react';
 import { Table, Space, Input, Button, Spin } from 'antd';
 import PostEditor from "../../components/postEditor/postEditor.component";
-import { getAllPosts, deletePost, changeOpenEditor } from '../../redux/actions/post';
+import { fetchAllPostsAsync, deleteAPostAsync, changeOpenEditor } from '../../redux/actions/post';
 import { connect } from "react-redux";
 import './home.styles.css';
 
-const Home = ({ getAllPosts, deletePost, posts, changeOpenEditor }) => {
+const Home = ({ fetchAllPostsAsync, deleteAPostAsync, posts, changeOpenEditor }) => {
 
     const { Column } = Table;
     const { Search } = Input;
 
-    // const [ search, setSearch ] = useState("");
     const [ showClear, setShowClear ] = useState(false);
 
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/posts?%20_start=0&_limit=20")
-        .then( res => res.json())
-        .then( data => {
-            getAllPosts(data);
-        } )
+        fetchAllPostsAsync();
     }, []);
 
     const searchPost = id => {
-        if ( id !== "" ) 
-            fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-            .then( res => res.json())
-            .then( data => {
-                getAllPosts([data]);
-                setShowClear(true);
-            } )
-        else 
+        if ( id !== "" ) {
+            fetchAllPostsAsync(id);
+            setShowClear(true);
+        } else 
             clearSearch();
     }
 
     const clearSearch = () => {
-        fetch("https://jsonplaceholder.typicode.com/posts?%20_start=0&_limit=20")
-        .then( res => res.json())
-        .then( data => {
-            getAllPosts(data);
-            setShowClear(false);
-        } )
+        fetchAllPostsAsync();
+        setShowClear(false);
     }
 
     return (
@@ -91,13 +78,7 @@ const Home = ({ getAllPosts, deletePost, posts, changeOpenEditor }) => {
                                         body: obj.body
                                     }) }>Edit</a>
                                     <a onClick={ () => {
-                                        fetch(`https://jsonplaceholder.typicode.com/posts/${obj.id}`, {
-                                            method: 'DELETE'
-                                        })
-                                        .then( res => {
-                                            deletePost(obj);
-                                        })
-                                        .then( err => console.log(err) ) 
+                                        deleteAPostAsync(obj.id)
                                     }}>Delete</a>
                                 </Space>
                             )} />
@@ -118,7 +99,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    getAllPosts, deletePost,
+    fetchAllPostsAsync, deleteAPostAsync,
     changeOpenEditor
 }
 
